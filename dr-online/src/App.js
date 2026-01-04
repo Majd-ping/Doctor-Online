@@ -29,6 +29,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/discussions" element={<Discussions />} />
         <Route path="/post/:id" element={<PostDetails />} />
+        <Route path="*" element={<Home />} />
       </Routes>
 
       <Footer />
