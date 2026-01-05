@@ -8,7 +8,14 @@ const jwt = require("jsonwebtoken");
 
 // 2️⃣ Create Express app
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: [
+    "https://majd-ping.github.io",
+    "http://localhost:3000",
+    "http://localhost:5000"
+  ],
+  credentials: true
+}));
 app.use(express.json()); // Important to parse JSON
 
 // 3️⃣ Connect to MySQL

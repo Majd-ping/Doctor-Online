@@ -71,7 +71,7 @@ function PostDetails() {
     try {
       const result = await authFetch(`/comments/${id}`, {
         method: "POST",
-        body: JSON.stringify({ text: commentText, user_id: user?.id }),
+        body: JSON.stringify({ content: commentText }),
       });
 
       if (result && result.success) {

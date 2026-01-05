@@ -35,7 +35,7 @@ function Discussions() {
     try {
       await authFetch('/discussions', {
         method: 'POST',
-        body: JSON.stringify({ topic: topic.trim(), user_id: user?.id || null }),
+        body: JSON.stringify({ topic: topic.trim(), content: topic.trim() }),
       });
       setTopic("");
       setError("");

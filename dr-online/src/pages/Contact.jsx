@@ -24,7 +24,7 @@ function Contact() {
     try {
       await authFetch('/contact', {
         method: 'POST',
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, subject: 'Contact Form', message }),
       });
       setSuccess("Message sent successfully! We'll get back to you soon.");
       setName("");

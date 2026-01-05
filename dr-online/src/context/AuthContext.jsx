@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import * as apiService from "../utils/api";
 
 export const AuthContext = createContext();
 
@@ -11,17 +12,10 @@ export const AuthProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-  const API = "http://localhost:5000/api";
-
   const login = async (email, password) => {
     try {
-      const res = await fetch(`${API}/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await res.json();
-      if (!res.ok) return { ok: false, message: data.message || "Login failed" };
+      const data = await apiService.login(email, password);
+      if (!data || !data.success) return { ok: false, message: data?.message || "Login failed" };
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
@@ -34,13 +28,8 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, role, password) => {
     try {
-      const res = await fetch(`${API}/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, role, password }),
-      });
-      const data = await res.json();
-      if (!res.ok) return { ok: false, message: data.message || "Register failed" };
+      const data = await apiService.register(name, email, password, role);
+      if (!data || !data.success) return { ok: false, message: data?.message || "Register failed" };
       return { ok: true };
     } catch (err) {
       return { ok: false, message: err.message };
