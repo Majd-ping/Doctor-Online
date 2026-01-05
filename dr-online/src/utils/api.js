@@ -1,4 +1,4 @@
-const API = "https://doctor-online-backend.onrender.com/api";
+const API = "http://localhost:5000/api";
 
 export async function authFetch(path, options = {}) {
   const token = localStorage.getItem("token");
