@@ -3,20 +3,21 @@
 .SYNOPSIS
     Automated deployment script for Doctor Online
 .DESCRIPTION
-    This script commits changes, pushes to main, builds React app, and deploys to gh-pages
+    This script commits changes and pushes to main branch only
 .EXAMPLE
     .\deploy.ps1
+    .\deploy.ps1 -Message "Fix: API bug"
 #>
 
 param(
-    [string]$Message = "Update: Deploy changes"
+    [string]$Message = "Update: Local changes"
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 Write-Host "`n========================================" -ForegroundColor Cyan
-Write-Host "  Doctor Online - Automated Deployment" -ForegroundColor Cyan
+Write-Host "  Doctor Online - Git Commit & Push" -ForegroundColor Cyan
 Write-Host "========================================`n" -ForegroundColor Cyan
 
 try {
@@ -27,26 +28,25 @@ try {
         exit 1
     }
 
-    # Get project root
     $PROJECT_ROOT = Split-Path -Parent $MyInvocation.MyCommand.Path
     Set-Location $PROJECT_ROOT
 
     # Step 1: Check git status
-    Write-Host "[1/5] Checking git status..." -ForegroundColor Yellow
+    Write-Host "[1/3] Checking git status..." -ForegroundColor Yellow
     git status
     Write-Host ""
 
     # Step 2: Stage all changes
-    Write-Host "[2/5] Staging all changes..." -ForegroundColor Yellow
+    Write-Host "[2/3] Staging all changes..." -ForegroundColor Yellow
     git add -A
     Write-Host "✓ Changes staged`n" -ForegroundColor Green
 
-    # Step 3: Commit changes
-    Write-Host "[3/5] Committing changes..." -ForegroundColor Yellow
+    # Step 3: Commit and push
+    Write-Host "[3/3] Committing and pushing to main..." -ForegroundColor Yellow
     if ([string]::IsNullOrWhiteSpace($Message)) {
-        $Message = Read-Host "Enter commit message (default: 'Update: Deploy changes')"
+        $Message = Read-Host "Enter commit message (default: 'Update: Local changes')"
         if ([string]::IsNullOrWhiteSpace($Message)) {
-            $Message = "Update: Deploy changes"
+            $Message = "Update: Local changes"
         }
     }
     
@@ -57,8 +57,6 @@ try {
         Write-Host "⚠ Nothing to commit or commit failed (continuing...)`n" -ForegroundColor Yellow
     }
 
-    # Step 4: Push to main
-    Write-Host "[4/5] Pushing to main branch..." -ForegroundColor Yellow
     git push origin main
     if ($LASTEXITCODE -eq 0) {
         Write-Host "✓ Pushed to main`n" -ForegroundColor Green
@@ -67,36 +65,13 @@ try {
         exit 1
     }
 
-    # Step 5: Build and deploy
-    Write-Host "[5/5] Building React app and deploying to gh-pages..." -ForegroundColor Yellow
-    Set-Location "$PROJECT_ROOT\dr-online"
-    
-    Write-Host "Building production bundle..." -ForegroundColor Cyan
-    npm run build
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "ERROR: Build failed" -ForegroundColor Red
-        exit 1
-    }
-
-    Set-Location $PROJECT_ROOT
-    
-    Write-Host "Force pushing to gh-pages..." -ForegroundColor Cyan
-    git push -f origin main:gh-pages
-    if ($LASTEXITCODE -eq 0) {
-        Write-Host "✓ Deployed to gh-pages`n" -ForegroundColor Green
-    } else {
-        Write-Host "ERROR: Failed to push to gh-pages" -ForegroundColor Red
-        exit 1
-    }
-
     # Success message
     Write-Host "========================================" -ForegroundColor Green
     Write-Host "  Deployment Complete!" -ForegroundColor Green
     Write-Host "========================================`n" -ForegroundColor Green
     
-    Write-Host "Repository updated:" -ForegroundColor Cyan
-    Write-Host "  - Main branch: https://github.com/Majd-ping/Doctor-Online" -ForegroundColor White
-    Write-Host "  - Frontend:    https://majd-ping.github.io/Doctor-Online/" -ForegroundColor White
+    Write-Host "Changes pushed to main branch:" -ForegroundColor Cyan
+    Write-Host "https://github.com/Majd-ping/Doctor-Online" -ForegroundColor White
     Write-Host "`n========================================`n" -ForegroundColor Cyan
     
 }
