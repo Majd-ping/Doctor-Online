@@ -93,13 +93,13 @@ CREATE TABLE appointments (
 
 -- Insert sample users (Patients and Doctors)
 INSERT INTO users (name, email, password, role, created_at) VALUES
-('John Patient', 'john@patient.com', '$2a$10$cQmgYsxASEBdbWDlVQEB3ODWD4F84BX/Ar/PEei9iH.ln0FW/lOge', 'Patient', NOW()),
-('Sarah Patient', 'sarah@patient.com', '$2a$10$cQmgYsxASEBdbWDlVQEB3ODWD4F84BX/Ar/PEei9iH.ln0FW/lOge', 'Patient', NOW()),
-('Mike Patient', 'mike@patient.com', '$2a$10$cQmgYsxASEBdbWDlVQEB3ODWD4F84BX/Ar/PEei9iH.ln0FW/lOge', 'Patient', NOW()),
-('Dr. Ahmed', 'ahmed@doctor.com', '$2a$10$cQmgYsxASEBdbWDlVQEB3ODWD4F84BX/Ar/PEei9iH.ln0FW/lOge', 'Doctor', NOW()),
-('Dr. Fatima', 'fatima@doctor.com', '$2a$10$cQmgYsxASEBdbWDlVQEB3ODWD4F84BX/Ar/PEei9iH.ln0FW/lOge', 'Doctor', NOW()),
-('Dr. Hassan', 'hassan@doctor.com', '$2a$10$cQmgYsxASEBdbWDlVQEB3ODWD4F84BX/Ar/PEei9iH.ln0FW/lOge', 'Doctor', NOW()),
-('Dr. Ali', 'ali@doctor.com', '$2a$10$0AzAIQ.5dBy4w9a3lIU...7fINJ9RBwjrSyHbfYjXr6eIsEphHmTm', 'Doctor', NOW());
+('John Patient', 'john@patient.com', '$2a$10$ybq7StqUl7JUOxXL4ZKC/uDGxREGmXNPKhYDZYpA6i/eXSe2P9zma', 'Patient', NOW()),
+('Sarah Patient', 'sarah@patient.com', '$2a$10$ybq7StqUl7JUOxXL4ZKC/uDGxREGmXNPKhYDZYpA6i/eXSe2P9zma', 'Patient', NOW()),
+('Mike Patient', 'mike@patient.com', '$2a$10$ybq7StqUl7JUOxXL4ZKC/uDGxREGmXNPKhYDZYpA6i/eXSe2P9zma', 'Patient', NOW()),
+('Dr. Ahmed', 'ahmed@doctor.com', '$2a$10$ybq7StqUl7JUOxXL4ZKC/uDGxREGmXNPKhYDZYpA6i/eXSe2P9zma', 'Doctor', NOW()),
+('Dr. Fatima', 'fatima@doctor.com', '$2a$10$ybq7StqUl7JUOxXL4ZKC/uDGxREGmXNPKhYDZYpA6i/eXSe2P9zma', 'Doctor', NOW()),
+('Dr. Hassan', 'hassan@doctor.com', '$2a$10$ybq7StqUl7JUOxXL4ZKC/uDGxREGmXNPKhYDZYpA6i/eXSe2P9zma', 'Doctor', NOW()),
+('Dr. Ali', 'ali@doctor.com', '$2a$10$ybq7StqUl7JUOxXL4ZKC/uDGxREGmXNPKhYDZYpA6i/eXSe2P9zma', 'Doctor', NOW());
 
 -- Insert sample doctors (linked to users)
 INSERT INTO doctors (user_id, specialization, experience, fees, availability) VALUES
